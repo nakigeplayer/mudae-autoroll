@@ -86,19 +86,30 @@ def startRollingSessions():
         bot = discum.Client(token=token, log=False)
         print(f"\n🚀 Iniciando sesiones con Token {i}")
 
-        for j, channel_id in enumerate(channel_ids, start=1):
-            server_id = server_ids[0]  # Tú decides manualmente cuál usar
-            rollSession(
-                bot=bot,
-                token=token,
-                channel_id=channel_id,
-                server_id=server_id,
-                roll_command='mx',
-                numbers_roll=14,
-                roll_id=f"{i}-{j}"
-            )
+        # Primera sesión con channel_ids[0] y server_ids[0]
+        rollSession(
+            bot=bot,
+            token=token,
+            channel_id=channel_ids[0],
+            server_id=server_ids[0],
+            roll_command='mx',
+            numbers_roll=14,
+            roll_id=f"{i}-1"
+        )
 
-        print(f"🏁 Token {i} completó todas sus sesiones.")
+        # Segunda sesión con channel_ids[1] y server_ids[0]
+        rollSession(
+            bot=bot,
+            token=token,
+            channel_id=channel_ids[1],
+            server_id=server_ids[0],
+            roll_command='mx',
+            numbers_roll=14,
+            roll_id=f"{i}-2"
+        )
+
+        print(f"🏁 Token {i} completó ambas sesiones individuales.")
+
 
 # Programar cada 3 horas
 schedule.every(3).hours.do(startRollingSessions)
